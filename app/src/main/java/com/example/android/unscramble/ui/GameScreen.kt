@@ -46,7 +46,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.android.unscramble.R
 import com.example.android.unscramble.ui.theme.UnscrambleTheme
 
-
 @Composable
 fun GameScreen(
     modifier: Modifier = Modifier,
@@ -113,13 +112,17 @@ fun GameStatus(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun GameLayout(modifier: Modifier = Modifier) {
+fun GameLayout(
+    currentScrambledWord: String,
+    modifier: Modifier = Modifier
+) {
+    GameLayout(currentScrambledWord = gameUiState.currentScrambledWord)
     Column(
         verticalArrangement = Arrangement.spacedBy(24.dp),
 
         ) {
         Text(
-            text = "scrambleun",
+            text = currentScrambledWord,
             fontSize = 45.sp,
             modifier = modifier.align(Alignment.CenterHorizontally)
         )

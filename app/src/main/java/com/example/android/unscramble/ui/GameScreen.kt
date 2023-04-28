@@ -34,6 +34,8 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -60,7 +62,12 @@ fun GameScreen(
     ) {
 
         GameStatus()
-        GameLayout()
+        GameLayout(
+            onUserGuessChanged = { gameViewModel.updateUserGuess(it) },
+            userGuess = gameViewModel.userGuess,
+            onKeyboardDone = { },
+            currentScrambledWord = gameUiState.currentScrambledWord
+        )
         Row(
             modifier = modifier
                 .fillMaxWidth()
@@ -110,21 +117,15 @@ fun GameStatus(modifier: Modifier = Modifier) {
         )
     }
 }
-fun updateUserGuess(guessedWord: String){
-    userGuess = guessedWord
-}
+
 @Composable
 fun GameLayout(
-    onUserGuessChanged = { gameViewModel.updateUserGuess(it) },
-    onKeyboardDone = { },
-    currentScrambledWord = gameUiState.currentScrambledWord,
+    currentScrambledWord: String,
+    userGuess: String,
     onUserGuessChanged: (String) -> Unit,
     onKeyboardDone: () -> Unit,
-    currentScrambledWord: String,
     modifier: Modifier = Modifier
 ) {
-
-    GameLayout(currentScrambledWord = gameUiState.currentScrambledWord)
     Column(
         verticalArrangement = Arrangement.spacedBy(24.dp),
 
@@ -140,7 +141,7 @@ fun GameLayout(
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         OutlinedTextField(
-            value = "",
+            value = userGuess,
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
             onValueChange = onUserGuessChanged,

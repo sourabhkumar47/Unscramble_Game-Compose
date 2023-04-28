@@ -110,12 +110,20 @@ fun GameStatus(modifier: Modifier = Modifier) {
         )
     }
 }
-
+fun updateUserGuess(guessedWord: String){
+    userGuess = guessedWord
+}
 @Composable
 fun GameLayout(
+    onUserGuessChanged = { gameViewModel.updateUserGuess(it) },
+    onKeyboardDone = { },
+    currentScrambledWord = gameUiState.currentScrambledWord,
+    onUserGuessChanged: (String) -> Unit,
+    onKeyboardDone: () -> Unit,
     currentScrambledWord: String,
     modifier: Modifier = Modifier
 ) {
+
     GameLayout(currentScrambledWord = gameUiState.currentScrambledWord)
     Column(
         verticalArrangement = Arrangement.spacedBy(24.dp),
@@ -135,14 +143,14 @@ fun GameLayout(
             value = "",
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
-            onValueChange = { },
+            onValueChange = onUserGuessChanged,
             label = { Text(stringResource(R.string.enter_your_word)) },
             isError = false,
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done
             ),
             keyboardActions = KeyboardActions(
-                onDone = { }
+                onDone = { onKeyboardDone }
             ),
         )
     }

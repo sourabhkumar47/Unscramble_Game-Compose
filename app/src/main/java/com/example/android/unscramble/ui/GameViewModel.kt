@@ -36,6 +36,12 @@ class GameViewModel : ViewModel() {
         return String(tempWord)
     }
 
+    //fun that take user guessed word.
+    //Inside the function, update the userGuess with the passed in guessedWord.
+    fun updateUserGuess(guessedWord: String){
+        userGuess = guessedWord
+    }
+
     fun resetGame() {
         usedWords.clear()
         _uiState.value = GameUiState(currentScrambledWord = pickUpRandomWordAndShuffle())

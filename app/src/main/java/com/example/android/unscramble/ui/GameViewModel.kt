@@ -32,7 +32,7 @@ class GameViewModel : ViewModel() {
             return pickUpRandomWordAndShuffle()
         } else
             usedWords.add(currentWord)
-        return pickUpRandomWordAndShuffle()
+        return shuffleCurrentWord(currentWord)
     }
 
     private fun shuffleCurrentWord(word: String): String {

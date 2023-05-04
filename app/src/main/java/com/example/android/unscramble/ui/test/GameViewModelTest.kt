@@ -6,6 +6,7 @@ import com.example.android.unscramble.ui.data.getUnscrambledWord
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Test
+import org.testng.Assert.assertTrue
 
 class GameViewModelTest {
     private val viewModel = GameViewModel()
@@ -37,7 +38,7 @@ class GameViewModelTest {
         //score is unchanged
         assertEquals(0, currentGameUiState.score)
         //assert that checkUserGuess() method updates isGuessedWordWrong correctly.
-        assertFalse(currentGameUiState.isGuessedWordWrong)
+        assertTrue(currentGameUiState.isGuessedWordWrong)
     }
 
     companion object {

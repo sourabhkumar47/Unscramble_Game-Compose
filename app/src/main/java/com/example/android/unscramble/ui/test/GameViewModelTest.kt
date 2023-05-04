@@ -24,6 +24,22 @@ class GameViewModelTest {
         assertEquals(20, currentGameUiState.score)
     }
 
+    @Test
+    fun gameViewModel_IncorrectGuess_ErrorFlagSet() {
+        // Given an incorrect word as input
+        val incorrectPlayerWord = "and"
+
+        viewModel.updateUserGuess(incorrectPlayerWord)
+        viewModel.checkUserGuess()
+
+        val currentGameUiState = viewModel.uiState.value
+
+        //score is unchanged
+        assertEquals(0, currentGameUiState.score)
+        //assert that checkUserGuess() method updates isGuessedWordWrong correctly.
+        assertFalse(currentGameUiState.isGuessedWordWrong)
+    }
+
     companion object {
         private const val SCORE_AFTER_FIRST_CORRECT_ANSWER = SCORE_INCREASE
     }
